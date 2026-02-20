@@ -2,8 +2,8 @@ import { useState, useEffect, useRef } from 'react'
 import { supabase } from './supabase'
 import './App.css'
 
-// API Base URL (default to the backend port chosen during local startup)
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8002'
+// API Base URL - uses environment variable for production deployment
+const API_URL = import.meta.env.VITE_API_URL || window.location.origin
 
 // ============== API Service ==============
 const api = {
@@ -650,7 +650,7 @@ function App() {
                 <label>GitHub Repository URL</label>
                 <input
                   type="text"
-                  placeholder="https://github.com/owner/repo"
+                  placeholder="https://github.com/deepankarokade/rift-agent-test-repo.git"
                   value={repoUrl}
                   onChange={(e) => setRepoUrl(e.target.value)}
                   required

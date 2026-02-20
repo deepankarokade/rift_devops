@@ -1,0 +1,10 @@
+{
+  "repository": "https://github.com/deepankarokade/test-repo.git",
+  "branch": "TEAM_PADY_DEEP_AI_Fix",
+  "failures_detected": 1,
+  "fixes_applied": 1,
+  "iterations": 0,
+  "final_status": "passed",
+  "time_taken": "25 seconds",
+  "score": 110
+}
