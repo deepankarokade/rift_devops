@@ -664,25 +664,31 @@ if __name__ == "__main__":
     import uvicorn
     import socket
 
-    # Force port 8002
-    port = 8002
+    # Use PORT from environment (Render) or default to 8002 (local)
+    port = int(os.environ.get("PORT", 8002))
     
-    # Check if port 8002 is in use
-    try:
-        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-            s.settimeout(0.5)
-            in_use = s.connect_ex(("127.0.0.1", port)) == 0
-    except Exception:
-        in_use = False
+    # Check if port is in use (skip for Render)
+    if os.environ.get("RENDER"):
+        # On Render, just start the server
+        print(f"Starting server on port {port} (Render)")
+        uvicorn.run(app, host="0.0.0.0", port=port)
+    else:
+        # Local development - check if port is in use
+        try:
+            with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+                s.settimeout(0.5)
+                in_use = s.connect_ex(("127.0.0.1", port)) == 0
+        except Exception:
+            in_use = False
 
-    if in_use:
-        print(f"ERROR: Port {port} is already in use!")
-        print(f"Please stop the process using port {port} and try again.")
-        import sys
-        sys.exit(1)
+        if in_use:
+            print(f"ERROR: Port {port} is already in use!")
+            print(f"Please stop the process using port {port} and try again.")
+            import sys
+            sys.exit(1)
 
-    print(f"Starting server on port {port}")
-    uvicorn.run(app, host="0.0.0.0", port=port)
+        print(f"Starting server on port {port}")
+        uvicorn.run(app, host="0.0.0.0", port=port)
 
 # Export for Vercel
 handler = app
