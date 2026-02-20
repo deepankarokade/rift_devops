@@ -3,7 +3,7 @@ import { supabase } from './supabase'
 import './App.css'
 
 // API Base URL - uses environment variable for production deployment
-const API_URL = (import.meta.env.VITE_API_URL || window.location.origin).replace(/\/$/, '')
+const API_URL = import.meta.env.VITE_API_URL || window.location.origin
 
 // ============== API Service ==============
 const api = {
