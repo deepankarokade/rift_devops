@@ -672,3 +672,6 @@ if __name__ == "__main__":
 
     print(f"Starting server on port {port}")
     uvicorn.run(app, host="0.0.0.0", port=port)
+
+# Export for Vercel
+handler = app
